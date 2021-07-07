@@ -31,7 +31,8 @@ namespace WebAddressbookTests
         }
         public IWebDriver Driver
         {
-            get {
+            get 
+            {
                 return driver;
             }
         }
@@ -45,8 +46,6 @@ namespace WebAddressbookTests
             {
                 // Ignore errors if unable to close the browser
             }
-          
-
         }
 
         public LoginHelper Auth 

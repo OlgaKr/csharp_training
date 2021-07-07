@@ -19,11 +19,16 @@ namespace WebAddressbookTests
             contact.Address = "Test Address";
             contact.Nickname = "Test Nickname";
             contact.Fax = "1234567890";
-            app.Contacts
-                .InitNewContactCreation()
-                .FillContactForm(contact)
-                .SubmitContactCreation();
-            app.Navigator.ReturnToHomePage();
+
+            app.Contacts.Create(contact);
+        }
+
+        [Test]
+        public void EmptyContactCreationTest()
+        {
+            ContactData contact = new ContactData("", "");
+
+            app.Contacts.Create(contact);
         }
     }
 }
