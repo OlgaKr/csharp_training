@@ -12,7 +12,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
-            app.Contacts.Remove("Olga Kravchenko");
+            app.Contacts.Remove(2);
         }
     }
 }

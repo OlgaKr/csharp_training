@@ -36,10 +36,10 @@ namespace WebAddressbookTests
             manager.Navigator.OpenHomePage();
             return this;
         }
-        public ContactHelper Remove(string deletename)
+        public ContactHelper Remove(int p)
         {
             manager.Navigator.OpenHomePage();
-            SelectContact(deletename);
+            SelectContact(p);
             RemoveContact();
             manager.Navigator.OpenHomePage();
             return this;
@@ -97,9 +97,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper SelectContact(string deletename)
+        public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("//input[@title='Select (" + deletename + ")']")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td/input")).Click();
             acceptNextAlert = true;
             return this;
         }
