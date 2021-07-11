@@ -11,15 +11,15 @@ namespace WebAddressbookTests
     {
         private string firstname;
         private string lastname;
-        private string middlename = "";
-        private string nickname = "";
-        private string title = "";
-        private string company = "";
-        private string address = "";
-        private string fax = "";
-        private string home = "";
-        private string mobile = "";
-        private string work = "";
+        private string middlename = null;
+        private string nickname = null;
+        private string title = null;
+        private string company = null;
+        private string address = null;
+        private string fax = null;
+        private string home = null;
+        private string mobile = null;
+        private string work = null;
         //etc.
 
 
