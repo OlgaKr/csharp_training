@@ -11,7 +11,7 @@ namespace WebAddressbookTests
     public class LoginTests : TestBase
     {
         [Test]
-        public void LoginWithValidCredentials()
+        public void _LoginWithValidCredentials()
         {
             //prepare
             app.Auth.Logout();

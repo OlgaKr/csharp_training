@@ -16,7 +16,6 @@ namespace WebAddressbookTests
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
         }
-
         protected bool acceptNextAlert = true;
         public ContactHelper Create(ContactData contact)
         {
@@ -27,24 +26,47 @@ namespace WebAddressbookTests
             manager.Navigator.ReturnToHomePage();
             return this;
         }
-
-        public ContactHelper Modify(ContactData newContactData)
+        public ContactHelper ModifyContact(ContactData newContactData)
         {
-            manager.Navigator.OpenHomePage();
-            InitContactModification();
-            FillContactForm(newContactData);
-            SubmitContactModification();
-            manager.Navigator.ReturnToHomePage();
+            if (IsContact())
+            {
+                Modify(newContactData);
+                return this;
+            }
+            ContactData contact = new ContactData("Olga", "Kravchenko");
+            Create(contact);
+            Modify(newContactData);
             return this;
         }
-        public ContactHelper Remove(int p)
+        public ContactHelper Modify(ContactData newContactData)
         {
+                manager.Navigator.OpenHomePage();
+                InitContactModification();
+                FillContactForm(newContactData);
+                SubmitContactModification();
+                manager.Navigator.ReturnToHomePage();
+                return this;
+        }
+
+        public ContactHelper DeleteContact(int p)
+        {
+        if (IsContact())
+         {
+            Remove(p);
+            return this;
+         }
+            ContactData contact = new ContactData("Olga", "Kravchenko");
+            Create(contact);
+            Remove(p);
+            return this;
+        }
+         public ContactHelper Remove(int p)
+         {
             manager.Navigator.OpenHomePage();
             SelectContact(p);
             RemoveContact();
-            manager.Navigator.ReturnToHomePage(); ;
             return this;
-        }
+         }
 
         public ContactHelper InitNewContactCreation()
         {
@@ -85,7 +107,6 @@ namespace WebAddressbookTests
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td/input")).Click();
-            acceptNextAlert = true;
             return this;
         }
 
@@ -116,6 +137,11 @@ namespace WebAddressbookTests
             {
                 acceptNextAlert = true;
             }
+        }
+
+        public bool IsContact()
+        {
+            return IsElementPresent(By.Name("selected[]"));
         }
     }
 }
