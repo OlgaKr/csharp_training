@@ -11,11 +11,19 @@ namespace WebAddressbookTests
     public class ContactModificationTests : AuthTestBase
     {
         [Test]
-        public void ContactModificationTest()
+    public void ContactModificationTest()
         {
             ContactData newContactData = new ContactData("Update Name", null);
-
-            app.Contacts.ModifyContact(newContactData);
+            if (app.Contacts.IsContact())
+            {
+                app.Contacts.Modify(newContactData);
+            }
+            else
+            {
+                ContactData contact = new ContactData("Olga", "Kravchenko");
+                app.Contacts.Create(contact);
+                app.Contacts.Modify(newContactData);
+            }
         }
     }
 }

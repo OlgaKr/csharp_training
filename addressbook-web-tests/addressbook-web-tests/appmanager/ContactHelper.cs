@@ -26,18 +26,7 @@ namespace WebAddressbookTests
             manager.Navigator.ReturnToHomePage();
             return this;
         }
-        public ContactHelper ModifyContact(ContactData newContactData)
-        {
-            if (IsContact())
-            {
-                Modify(newContactData);
-                return this;
-            }
-            ContactData contact = new ContactData("Olga", "Kravchenko");
-            Create(contact);
-            Modify(newContactData);
-            return this;
-        }
+
         public ContactHelper Modify(ContactData newContactData)
         {
                 manager.Navigator.OpenHomePage();
@@ -48,18 +37,6 @@ namespace WebAddressbookTests
                 return this;
         }
 
-        public ContactHelper DeleteContact(int p)
-        {
-        if (IsContact())
-         {
-            Remove(p);
-            return this;
-         }
-            ContactData contact = new ContactData("Olga", "Kravchenko");
-            Create(contact);
-            Remove(p);
-            return this;
-        }
          public ContactHelper Remove(int p)
          {
             manager.Navigator.OpenHomePage();
