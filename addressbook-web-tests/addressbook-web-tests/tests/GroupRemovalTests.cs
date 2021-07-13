@@ -12,7 +12,19 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            app.Groups.Remove(1);
+            GroupData newGroupData = new GroupData("Update Group Name");
+            app.Navigator.GoToGroupsPage();
+
+            if (app.Groups.IsGroup())
+            {
+                app.Groups.Remove(1);
+            }
+            else
+            {
+                GroupData group = new GroupData("Group Name");
+                app.Groups.Create(group);
+                app.Groups.Remove(1);
+            }
         }
     }
 }
