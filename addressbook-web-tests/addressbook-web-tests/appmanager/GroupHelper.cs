@@ -93,6 +93,7 @@ namespace WebAddressbookTests
         }
         public bool IsGroup()
         {
+            manager.Navigator.GoToGroupsPage();
             return IsElementPresent(By.Name("selected[]"));
         }
     }

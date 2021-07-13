@@ -14,7 +14,6 @@ namespace WebAddressbookTests
         public void GroupModificationTest()
         {
             GroupData newGroupData = new GroupData("Update Group Name");
-            app.Navigator.GoToGroupsPage();
 
             if (app.Groups.IsGroup())
             {
