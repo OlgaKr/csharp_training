@@ -12,18 +12,13 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            GroupData newGroupData = new GroupData("Update Group Name");
-
-            if (app.Groups.IsGroup())
-            {
-                app.Groups.Remove(1);
-            }
-            else
+            if (!app.Groups.IsGroup())
             {
                 GroupData group = new GroupData("Group Name");
                 app.Groups.Create(group);
-                app.Groups.Remove(1);
             }
+
+                app.Groups.Remove(1);
         }
     }
 }

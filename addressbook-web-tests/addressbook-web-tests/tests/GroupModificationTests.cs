@@ -7,24 +7,20 @@ using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
-    [TestFixture]
+    //[TestFixture]
     public class GroupModificationTests : AuthTestBase
     {
         [Test]
         public void GroupModificationTest()
         {
-            GroupData newGroupData = new GroupData("Update Group Name");
-
-            if (app.Groups.IsGroup())
-            {
-                app.Groups.Modify(1, newGroupData);
-            }
-            else
+            if (!app.Groups.IsGroup())
             {
                 GroupData group = new GroupData("Group Name");
                 app.Groups.Create(group);
-                app.Groups.Modify(1, newGroupData);
             }
+
+            GroupData newGroupData = new GroupData("Update Group Name");
+            app.Groups.Modify(1, newGroupData);          
         }
     }
 }
