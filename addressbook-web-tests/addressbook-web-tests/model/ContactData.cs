@@ -7,169 +7,57 @@ using System.Threading.Tasks;
 namespace WebAddressbookTests
 
 {
-    public class ContactData
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string lastname;
-        private string middlename = null;
-        private string nickname = null;
-        private string title = null;
-        private string company = null;
-        private string address = null;
-        private string fax = null;
-        private string home = null;
-        private string mobile = null;
-        private string work = null;
-        //etc.
-
-
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
+        }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string Middlename { get; set; }
+        public string Nickname { get; set; }
+        public string Title { get; set; }
+        public string Address { get; set; }
+        public string Company { get; set; }
+        public string Fax { get; set; }
+        public string Mobile { get; set; }
+        public string Home { get; set; }
+        public string Work { get; set; }
+        public string Id { get; set; }
+
+        public bool Equals(ContactData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return Firstname == other.Firstname & Lastname == other.Lastname;
         }
 
-        public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
+        public override int GetHashCode()
+        {;
+            return Firstname.GetHashCode() & Lastname.GetHashCode();
         }
 
-        public string Lastname
+        public override string ToString()
         {
-            get
-            {
-                return lastname;
-            }
-
-            set
-            {
-                lastname = value;
-            }
+            return "name=" + Firstname + Lastname;
         }
 
-        public string Middlename
+        public int CompareTo(ContactData other)
         {
-            get
+            if (Object.ReferenceEquals(other, null))
             {
-                return middlename;
+                return 1;
             }
-
-            set
-            {
-                middlename = value;
-            }
-        }
-
-        public string Nickname
-        {
-            get
-            {
-                return nickname;
-            }
-
-            set
-            {
-                nickname = value;
-            }
-        }
-
-        public string Title
-        {
-            get
-            {
-                return title;
-            }
-
-            set
-            {
-                title = value;
-            }
-        }
-
-        public string Address
-        {
-            get
-            {
-                return address;
-            }
-
-            set
-            {
-                address = value;
-            }
-        }
-
-        public string Company
-        {
-            get
-            {
-                return company;
-            }
-
-            set
-            {
-                company = value;
-            }
-        }
-
-        public string Fax
-        {
-            get
-            {
-                return fax;
-            }
-
-            set
-            {
-                fax = value;
-            }
-        }
-
-        public string Mobile
-        {
-            get
-            {
-                return mobile;
-            }
-
-            set
-            {
-                mobile = value;
-            }
-        }
-
-        public string Home
-        {
-            get
-            {
-                return home;
-            }
-
-            set
-            {
-                home = value;
-            }
-        }
-
-        public string Work
-
-        {
-            get
-            {
-                return work;
-            }
-
-            set
-            {
-                work = value;
-            }
+            return Firstname.CompareTo(other.Firstname) & Lastname.CompareTo(other.Lastname);
         }
     }
 }
