@@ -58,14 +58,17 @@ namespace WebAddressbookTests
                 return 1;
             }
 
-            if (Lastname.Equals(other.Lastname))
+            if (!Lastname.Equals(other.Lastname))
             {
-                if (Firstname.Equals(other.Firstname))
-                { 
-                    return Firstname.CompareTo(other.Firstname);
-                }        
+                return Lastname.CompareTo(other.Lastname);
             }
-            return Lastname.CompareTo(other.Lastname);
+
+            if (!Firstname.Equals(other.Firstname))
+            {
+                return Firstname.CompareTo(other.Firstname);
+            }
+
+            return 0;
         }
     }
 }
