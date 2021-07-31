@@ -19,7 +19,7 @@ namespace WebAddressbookTests
                 app.Contacts.Create(contact);         
             }
 
-            ContactData newContactData = new ContactData("Z", "Z");
+            ContactData newContactData = new ContactData("Alex", "Petrov");
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
             ContactData oldData = oldContacts[0];
@@ -34,6 +34,8 @@ namespace WebAddressbookTests
             oldContacts[0].Lastname = newContactData.Lastname;
             oldContacts.Sort();
             newContacts.Sort();
+
+  
 
             Assert.AreEqual(oldContacts, newContacts);
 
