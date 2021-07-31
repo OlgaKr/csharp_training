@@ -163,8 +163,8 @@ namespace WebAddressbookTests
             return new ContactData(firstName, lastName)
             {
                 Address = address,
-                AllPhones = allPhones,
-                AllMails = allMails
+                AllPhones = Regex.Replace(allPhones, "[ \r\n]", ""),
+                AllMails = Regex.Replace(allMails, "[ \r\n]", "")             
             };
         }
 
