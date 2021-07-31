@@ -18,6 +18,7 @@ namespace WebAddressbookTests
         }
 
         protected bool acceptNextAlert = true;
+
         public ContactHelper Create(ContactData contact)
         {
             manager.Navigator.OpenHomePage();
@@ -170,7 +171,7 @@ namespace WebAddressbookTests
         public ContactData GetContactInformationfromEditForm(int index)
         {
             manager.Navigator.OpenHomePage();
-            InitContactModification(0);
+            InitContactModification(index);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
@@ -193,6 +194,52 @@ namespace WebAddressbookTests
                 Mail2 = mail2,
                 Mail3 = mail3
             };
+        }
+
+        public string GetContactInformationFromPersonView(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            ViewContactDetails(index);
+            string content = driver.FindElement(By.Id("content")).Text;
+            return content;
+        }
+
+        public ContactHelper ViewContactDetails(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
+        public string PersonViewForContact(ContactData contact)
+        {
+            string contactDetaiedView = EmptyValueCheck(contact.Firstname).Replace("\r\n", "") + " " +
+                EmptyValueCheck(contact.Lastname).Replace("\r\n", "") + "\r\n" +
+                EmptyValueCheck(contact.Address) + "\r\n" +
+                EmptyPhoneValueCheck("H", contact.Home) +
+                EmptyPhoneValueCheck("M", contact.Mobile) +
+                EmptyPhoneValueCheck("W", contact.Work) + "\r\n" +
+                EmptyValueCheck(contact.Mail1) +
+                EmptyValueCheck(contact.Mail2) +
+                EmptyValueCheck(contact.Mail3);
+
+
+            return contactDetaiedView.Trim();
+        }
+
+        private static string EmptyValueCheck(string value)
+        {
+            if (value == "" || value == null)
+                return "";
+
+            return value.Trim() + "\r\n";
+        }
+
+        private static string EmptyPhoneValueCheck(string prefix, string phone)
+        {
+            if (phone == "" || phone == null)
+                return "";
+
+            return prefix + ": " + phone.Trim() + "\r\n";
         }
     }
 }
