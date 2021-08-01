@@ -9,6 +9,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
+
 namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
@@ -31,21 +32,21 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(ContactData newContactData)
         {
-                manager.Navigator.OpenHomePage();
-                InitContactModification(0);
-                FillContactForm(newContactData);
-                SubmitContactModification();
-                manager.Navigator.ReturnToHomePage();
-                return this;
+            manager.Navigator.OpenHomePage();
+            InitContactModification(0);
+            FillContactForm(newContactData);
+            SubmitContactModification();
+            manager.Navigator.ReturnToHomePage();
+            return this;
         }
 
-         public ContactHelper Remove(int p)
-         {
+        public ContactHelper Remove(int p)
+        {
             manager.Navigator.OpenHomePage();
             SelectContact(p);
             RemoveContact();
             return this;
-         }
+        }
 
         public ContactHelper InitNewContactCreation()
         {
@@ -74,8 +75,8 @@ namespace WebAddressbookTests
 
         public void InitContactModification(int index)
         {
-        //driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
-        driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
+            //driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
         }
 
         public ContactHelper SubmitContactModification()
@@ -164,7 +165,7 @@ namespace WebAddressbookTests
             {
                 Address = address,
                 AllPhones = Regex.Replace(allPhones, "[ \r\n]", ""),
-                AllMails = Regex.Replace(allMails, "[ \r\n]", "")             
+                AllMails = Regex.Replace(allMails, "[ \r\n]", "")
             };
         }
 
@@ -241,5 +242,29 @@ namespace WebAddressbookTests
 
             return prefix + ": " + phone.Trim() + "\r\n";
         }
+
+        public int GetNumberofSearchResults()
+        {
+            return int.Parse(driver.FindElement(By.Id("search_count")).Text);
+            /*string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);*/
+        }
+
+
+        public void SearchContact(string name)
+        {
+            manager.Navigator.OpenHomePage();
+            driver.FindElement(By.Name("searchstring")).SendKeys(name);
+            driver.FindElement(By.Name("searchstring")).SendKeys(Keys.Enter);
+        }
+
+        public int SearchContactResult()
+        {
+
+            return driver.FindElements(By.CssSelector("tr[name='entry']")).Count - 
+            driver.FindElements(By.CssSelector("tr[style='display: none;']")).Count;
+        }
+
     }
 }
