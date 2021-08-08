@@ -8,40 +8,30 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactModificationTests : AuthTestBase
+    public class ContactModificationTests : ContactTestBase
     {
         [Test]
-    public void ContactModificationTest()
+        public void ContactModificationTest()
         {
-            if (!app.Contacts.IsContact())
-            {
-                ContactData contact = new ContactData("Olga", "K");
-                app.Contacts.Create(contact);         
-            }
-
             ContactData newContactData = new ContactData("Alex", "Petrov");
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
-            ContactData oldData = oldContacts[0];
+            List<ContactData> oldContacts = ContactData.GetAllContacts();
 
-            app.Contacts.Modify(newContactData);
+            newContactData.Id = oldContacts[0].Id;
+            app.Contacts.ModifyById(newContactData);
 
-            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
-
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAllContacts();
 
             oldContacts[0].Firstname = newContactData.Firstname;
             oldContacts[0].Lastname = newContactData.Lastname;
+
             oldContacts.Sort();
             newContacts.Sort();
-
-  
-
             Assert.AreEqual(oldContacts, newContacts);
 
             foreach (ContactData contact in newContacts)
             {
-                if (contact.Id == oldData.Id)
+                if (contact.Id == newContactData.Id)
                 {
                     Assert.AreEqual(newContactData.Firstname, contact.Firstname);
                     Assert.AreEqual(newContactData.Lastname, contact.Lastname);

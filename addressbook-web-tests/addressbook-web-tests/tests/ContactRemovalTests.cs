@@ -8,37 +8,33 @@ using System.Collections.Generic;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactRemovalTests : AuthTestBase
+    public class ContactRemovalTests : ContactTestBase
     {
         [Test]
         public void ContactRemovalTest()
         {
+            List<ContactData> oldContacts = ContactData.GetAllContacts();
+            System.Console.Out.Write("Before Deletion: " + oldContacts.Count);
 
-            if (!app.Contacts.IsContact())
-            {
-                ContactData contact = new ContactData("Olga", "K");
-                app.Contacts.Create(contact);
-            }
-
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
-
-            app.Contacts.Remove(0);
-
-            app.Contacts.GetContactList();
+            ContactData toBeRemoved = oldContacts[0];
+            app.Contacts.RemoveById(toBeRemoved.Id);
 
             Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
-
-            ContactData toBeRemoved = oldContacts[0];
             oldContacts.RemoveAt(0);
+
+            List<ContactData> newContacts = ContactData.GetAllContacts();
+            System.Console.Out.Write("After Deletion: " + newContacts.Count);
+
+            oldContacts.Sort();
+            newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
 
             foreach (ContactData contact in newContacts)
             {
                 Assert.AreNotEqual(contact.Id, toBeRemoved.Id);
-            }
-        }
+            }            
+        }        
     }
 }
 

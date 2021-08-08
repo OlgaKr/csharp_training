@@ -39,10 +39,10 @@ namespace adddressbook_test_data_generators
                 List<GroupData> groups = new List<GroupData>();
                 for (int i = 0; i < count; i++)
                 {
-                    groups.Add(new GroupData(TestBase.GenerateRandomString(10))
+                    groups.Add(new GroupData("Group: " + TestBase.GenerateRandomString(5))
                     {
-                        Header = TestBase.GenerateRandomString(10),
-                        Footer = TestBase.GenerateRandomString(100)
+                        Header = "Header: " + TestBase.GenerateRandomString(10),
+                        Footer = "Footer: " + TestBase.GenerateRandomString(10)
                     });
                 }
 
@@ -123,16 +123,17 @@ namespace adddressbook_test_data_generators
 
             for (int i = 0; i < count; i++)
             {
-                contacts.Add(new ContactData(TestBase.GenerateRandomString(10), TestBase.GenerateRandomString(10))
+                contacts.Add(new ContactData("FN : " + TestBase.GenerateRandomString(5), 
+                    "LN : " + TestBase.GenerateRandomString(5))
                 {
-                    Address = TestBase.GenerateRandomString(10),
-                    Company = TestBase.GenerateRandomString(10),
-                    Middlename = TestBase.GenerateRandomString(10),
-                    Nickname = TestBase.GenerateRandomString(10),
-                    Title = TestBase.GenerateRandomString(10),
-                    Fax = TestBase.GenerateRandomString(10),
-                    Mobile = TestBase.GenerateRandomString(10),
-                    Home = TestBase.GenerateRandomString(10)
+                    Address = "Address: " + TestBase.GenerateRandomString(5),
+                    Company = "Company: " + TestBase.GenerateRandomString(5),
+                    Middlename = "MN: " + TestBase.GenerateRandomString(5),
+                    Nickname = "NN: " + TestBase.GenerateRandomString(5),
+                    Title = "Title: " + TestBase.GenerateRandomString(5),
+                    Fax = "+38(097)-" + TestBase.GenerateRandomString(5),
+                    Mobile = "+38(097)-" + TestBase.GenerateRandomString(5),
+                    Home = "+38(097)-" + TestBase.GenerateRandomString(5)
                 });
             }
 
