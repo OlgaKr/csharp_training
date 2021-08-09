@@ -14,18 +14,19 @@ using System.Linq;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests: GroupTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
             List<GroupData> groups = new List<GroupData>();
             for (int i = 0; i < 5; i++)
-                { 
-                  groups.Add(new GroupData(GenerateRandomString(20))
-                    { 
-                      Header = GenerateRandomString(100),
-                      Footer = GenerateRandomString (100) });
-                 }
+            {
+                groups.Add(new GroupData(GenerateRandomString(20))
+                {
+                    Header = GenerateRandomString(100),
+                    Footer = GenerateRandomString(100)
+                });
+            }
             return groups;
         }
 
@@ -37,9 +38,9 @@ namespace WebAddressbookTests
             {
                 string[] parts = l.Split(',');
                 groups.Add(new GroupData(parts[0])
-                { 
-                Header =parts[1],
-                Footer = parts[2]
+                {
+                    Header = parts[1],
+                    Footer = parts[2]
                 });
             }
             return groups;
@@ -48,9 +49,9 @@ namespace WebAddressbookTests
         public static IEnumerable<GroupData> GroupDataFromXmlFile()
         {
             List<GroupData> groups = new List<GroupData>();
-            return (List<GroupData>) 
+            return (List<GroupData>)
                 new XmlSerializer(typeof(List<GroupData>))
-                .Deserialize(new StreamReader(@"groups.xml"));         
+                .Deserialize(new StreamReader(@"groups.xml"));
         }
 
         public static IEnumerable<GroupData> GroupDataFromJsonFile()
@@ -70,10 +71,10 @@ namespace WebAddressbookTests
             for (int i = 1; i <= range.Rows.Count; i++)
             {
                 groups.Add(new GroupData()
-                { 
-                Name =   range.Cells[i, 1].Value,
-                Header = range.Cells[i, 2].Value,
-                Footer = range.Cells[i, 3].Value
+                {
+                    Name = range.Cells[i, 1].Value,
+                    Header = range.Cells[i, 2].Value,
+                    Footer = range.Cells[i, 3].Value
                 });
             }
             wb.Close();
@@ -100,27 +101,27 @@ namespace WebAddressbookTests
         }
 
         [Test]
-         public void BadNameGroupCreationTest()
-         {
-             GroupData group = new GroupData("a'a");
-             group.Header = "";
-             group.Footer = "";
+        public void BadNameGroupCreationTest()
+        {
+            GroupData group = new GroupData("a'a");
+            group.Header = "";
+            group.Footer = "";
 
-             List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-             app.Groups.Create(group);
+            app.Groups.Create(group);
 
-             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-             List<GroupData> newGroups = app.Groups.GetGroupList();
-             oldGroups.Add(group);
-             oldGroups.Sort();
-             newGroups.Sort();
-             Assert.AreEqual(oldGroups, newGroups);
-         }
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+        }
 
         [Test]
-        public void TestDBConnectivity()
+        public void TestDBConnectivityTime()
         {
             DateTime start = DateTime.Now;
             List<GroupData> fromUi = app.Groups.GetGroupList();
@@ -131,6 +132,20 @@ namespace WebAddressbookTests
             List<GroupData> fromDb = GroupData.GetAllGroups();
             end = DateTime.Now;
             System.Console.Out.WriteLine(end.Subtract(start));
+        }
+
+        [Test]
+        public void TestDBConnectivityContactsinGroups()
+        {
+            /*foreach (ContactData contact in GroupData.GetAllGroups()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            }*/
+            foreach (ContactData contact in ContactData.GetAllContacts())
+            {
+                System.Console.Out.WriteLine(contact.Deprecated);
+            }
+
         }
     }
 }
