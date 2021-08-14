@@ -336,5 +336,14 @@ namespace WebAddressbookTests
             return driver.FindElements(By.CssSelector("tr[name='entry']")).Count - 
             driver.FindElements(By.CssSelector("tr[style='display: none;']")).Count;
         }
+
+        public void CreateContactIfNotExist()
+        {
+            if (ContactData.GetAllContacts().Count == 0)
+            {
+                ContactData contact = new ContactData("Olga", "Kravchenko");
+                Create(contact);
+            }
+        }
     }
 }

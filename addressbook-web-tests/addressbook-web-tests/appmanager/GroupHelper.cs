@@ -88,13 +88,13 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
-                driver.FindElement(By.XPath("//div[@id='content']/form/span[" + (index+1) + "]/input")).Click();
-                return this;            
+            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + (index + 1) + "]/input")).Click();
+            return this;
         }
 
         public GroupHelper SelectGroupById(string id)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"' ])")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "' ])")).Click();
             return this;
         }
 
@@ -140,23 +140,33 @@ namespace WebAddressbookTests
                 string allGroupNames = driver.FindElement(By.CssSelector("div#content form")).Text;
                 string[] parts = allGroupNames.Split('\n');
                 int shift = groupCache.Count - parts.Length;
-                for (int i=0; i<groupCache.Count; i++)
-                    {
+                for (int i = 0; i < groupCache.Count; i++)
+                {
                     if (i < shift)
                     {
                         groupCache[i].Name = "";
                     }
                     else
-                    { 
-                        groupCache[i].Name = parts[i-shift].Trim();
+                    {
+                        groupCache[i].Name = parts[i - shift].Trim();
                     }
                 }
             }
-            return new List<GroupData> (groupCache);
+            return new List<GroupData>(groupCache);
         }
         public int GetGroupCount()
         {
-            return driver.FindElements(By.CssSelector("span.group")).Count;
+            //return driver.FindElements(By.CssSelector("span.group")).Count;
+            return driver.FindElements(By.ClassName("group")).Count;
         }
+
+        public void CreateGroupIfNotExist()
+        {
+            if (GroupData.GetAllGroups().Count == 0)
+            {
+                GroupData group = new GroupData("Group");
+                Create(group);
+            }
+        }        
     }
 }

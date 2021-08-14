@@ -12,9 +12,22 @@ namespace WebAddressbookTests
         [Test]
         public void TestAddingContactToGroup()
         {
+            app.Contacts.CreateContactIfNotExist();
+            app.Groups.CreateGroupIfNotExist();
+
             GroupData group = GroupData.GetAllGroups()[0];
+
             List<ContactData> oldList = group.GetContacts();
-            ContactData contact = ContactData.GetAllContacts().Except(oldList).First();
+
+            if (ContactData.GetAllContacts().Count - oldList.Count == 0)
+            {
+                ContactData newcontact = new ContactData("Alex", "Petrov");
+                app.Contacts.Create(newcontact);
+            }
+
+            ContactData contact = ContactData.GetAllContacts().Except(group.GetContacts()).First();
+            //Console.WriteLine(ContactData.GetAllContacts().Except(group.GetContacts()).First());
+            //Console.WriteLine(ContactData.GetAllContacts().Except(group.GetContacts()).Count());
 
             app.Contacts.AddContactToGroup(contact, group);
 
@@ -23,7 +36,7 @@ namespace WebAddressbookTests
             newList.Sort();
             oldList.Sort();
 
-            Assert.AreEqual(oldList, newList);              
+            Assert.AreEqual(oldList, newList);
         }
-    }    
+    }
 }

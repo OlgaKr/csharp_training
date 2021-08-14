@@ -13,6 +13,8 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
+            app.Contacts.CreateContactIfNotExist();
+
             List<ContactData> oldContacts = ContactData.GetAllContacts();
             System.Console.Out.Write("Before Deletion: " + oldContacts.Count);
 

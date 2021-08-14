@@ -10,12 +10,20 @@ namespace WebAddressbookTests
     public class RemovingContactFromGroupTest : AuthTestBase
     {
         [Test]
-
         public void TestRemovingContactToGroup()
         {
+            app.Contacts.CreateContactIfNotExist();
+            app.Groups.CreateGroupIfNotExist();
+          
             GroupData group = GroupData.GetAllGroups()[0];
 
-            List<ContactData> oldList = group.GetContacts();
+            if (group.GetContacts().Count == 0)
+            {
+                app.Contacts.AddContactToGroup(ContactData.GetAllContacts()[0], group);
+            }
+
+            List <ContactData> oldList = group.GetContacts();
+            
             ContactData contact = oldList[0];
 
             app.Contacts.RemoveContactFromGroup(contact, group);

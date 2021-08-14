@@ -70,6 +70,7 @@ namespace WebAddressbookTests
             using (AddressBookDB db = new AddressBookDB())
             {
                 return (from g in db.Groups select g).ToList();
+                //return (from g in db.Groups.Where(g.Deprecated == "0000-00-00 00:00:00") select g).ToList();
             }
         }
 
@@ -80,7 +81,9 @@ namespace WebAddressbookTests
             using (AddressBookDB db = new AddressBookDB())
             {
                 return (from c in db.Contacts
-                            from gcr in db.GCR.Where(p => p.GroupId == Id && p.ContactId == c.Id && c.Deprecated == "0000-00-00 00:00:00")
+                            from gcr in db.GCR.Where(p => p.GroupId == Id 
+                            && p.ContactId == c.Id 
+                            && c.Deprecated == "0000-00-00 00:00:00")
                             select c).Distinct().ToList();           
             }
         }
