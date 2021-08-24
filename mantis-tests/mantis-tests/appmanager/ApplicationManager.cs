@@ -20,16 +20,23 @@ namespace mantis_tests
         public JamesHelper James { get; set; }
         public MailHelper Mail { get; set; }
 
+        public LoginHelper Auth { get; set; }
+        public ProjectHelper Project { get; set; }
+        public NavigationHelper Navigator { get; set; }
+
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
         private ApplicationManager()
         {
            driver = new FirefoxDriver();
-           baseURL = "http://localhost/addressbook";
            Registration = new RegistrationHelper(this);
            Ftp = new FtpHelper(this);
            James = new JamesHelper(this);
            Mail = new MailHelper(this);
+
+           Auth = new LoginHelper(this, baseURL);
+           Project = new ProjectHelper(this);
+           Navigator = new NavigationHelper(this, baseURL);
         }
 
          ~ApplicationManager()
@@ -40,7 +47,6 @@ namespace mantis_tests
             }
             catch (Exception)
             {
-                // Ignore errors if unable to close the browser
             }
         }
 

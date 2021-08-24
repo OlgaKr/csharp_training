@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -9,8 +8,15 @@ namespace mantis_tests
 {
     public class TestBase
     {
-        public static bool PERFORM_LONG_UI_CHECKS = false;
+        //public static bool PERFORM_LONG_UI_CHECKS = false;
+
         protected ApplicationManager app;
+
+        public static Random rndGenerator = new Random();
+
+        public const int GENERAL = 0;
+        public const int PHONE = 1;
+        public const int EMAIL = 2;
 
         [OneTimeSetUp]
         public void SetupApplicationManager()
@@ -20,14 +26,23 @@ namespace mantis_tests
 
         public static Random rnd = new Random();
 
-        public static string GenerateRandomString(int max)
+        public static String RandomString(int lenght)
+        {      
+            string allowedChars = "ABCD0123456789";
+            string randomString = genString(lenght, allowedChars);
+            
+            return randomString;
+        }
+
+        public static string genString(int lenght, string allowedChars)
         {
-            int l = Convert.ToInt32(rnd.NextDouble() * max);
             StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < l; i++)
+
+            for (var i = 0; i < lenght; i++)
             {
-                builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 65 + 30)));
+                builder.Append(allowedChars[rndGenerator.Next(0, allowedChars.Length)]);
             }
+
             return builder.ToString();
         }
     }
