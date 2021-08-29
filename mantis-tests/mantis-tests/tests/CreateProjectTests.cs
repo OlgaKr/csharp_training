@@ -14,11 +14,11 @@ namespace mantis_tests
         {
             ProjectData project = new ProjectData("Test Project: " + RandomString(5), "Test Project Description: " + RandomString(10));
 
-            List<ProjectData> oldProjects = app.Project.GetProjectsList();
+            List<ProjectData> oldProjects = app.API.GetProjectList();
 
             app.Project.AddNewProject(project);
 
-            List<ProjectData> newProjects = app.Project.GetProjectsList();
+            List<ProjectData> newProjects = app.API.GetProjectList();
 
             oldProjects.Add(project);
             oldProjects.Sort();

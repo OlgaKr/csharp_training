@@ -15,10 +15,10 @@ namespace mantis_tests
         public ProjectData() { }
 
 
-        public ProjectData(string name, string descriprion)
+        public ProjectData(string name, string description)
         {
             Name = name;
-            Description = descriprion;
+            Description = description;
         }
 
 

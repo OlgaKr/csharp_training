@@ -12,15 +12,15 @@ namespace mantis_tests
         [Test]
         public void DeleteProject()
         {
-            app.Project.CreateProjectIfNotExist();
+            app.API.CreateProjectIfNotExistAPI();
 
-            List<ProjectData> oldProjects = app.Project.GetProjectsList();
+            List<ProjectData> oldProjects = app.API.GetProjectList();
 
             ProjectData project = oldProjects[0];
 
             app.Project.RemoveProject(project);
 
-            List<ProjectData> newProjects = app.Project.GetProjectsList();
+            List<ProjectData> newProjects = app.API.GetProjectList();
 
             oldProjects.Remove(project);
             oldProjects.Sort();
